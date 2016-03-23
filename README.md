@@ -11,5 +11,3 @@ LastName FirstName Gender DoB Favorite Color
     3. Last name descending
 
 The following code assumes that the three text files are populated with data.
-
-
