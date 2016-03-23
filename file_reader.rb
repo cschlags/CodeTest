@@ -1,4 +1,5 @@
 require 'pry'
+require 'time'
 class Filereader
   LocalFiles = ["comma.txt", "pipe.txt", "space.txt"]
   attr_accessor :person_array
@@ -42,17 +43,30 @@ class Filereader
       return "Female"
     end
   end
-  
+
 # method - returns output 1
   def output_1
-    binding.pry
+    puts "\nOutput 1: \n"
+    person_array.sort_by!{ |a| [a[2], a[0]] }
+    person_array.each do |value|
+      puts value.join(" ")
+    end
   end
 # method - returns output 2
   def output_2
+    puts "\nOutput 2: \n"
+    person_array.sort_by!{ |a| [a[3].split("/").last, a[0]] }
+    person_array.each do |value|
+      puts value.join(" ")
+    end
   end
 # method - returns output 3
   def output_3
-    @person_array.sort.reverse
+    puts "\nOutput 3: \n"
+    person_array.sort!.reverse!
+    person_array.each do |value|
+      puts value.join(" ")
+    end
   end
 end
 
