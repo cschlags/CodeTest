@@ -10,4 +10,4 @@ LastName FirstName Gender DoB Favorite Color
     2. Sort by DoB then last name ascending
     3. Last name descending
 
-The following code assumes that the three text files are populated with data.
+    

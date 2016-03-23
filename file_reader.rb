@@ -3,42 +3,46 @@ class Filereader
   attr_accessor :person_array
   def initialize
     self.person_array = Array.new
-    manipulate_files
+    grab_file
     output_1
     output_2
     output_3
   end
 
-  def manipulate_files
-    LocalFiles.each do |file_name|
-      File.foreach("text_files/#{file_name}") do |line|
-        case file_name
-        when "comma.txt"
-          removed_characters = line.gsub("-","/").split(/,|\|/).collect(&:strip)
-          color = removed_characters.slice!(3)
-          @person_array.push(removed_characters.push(color))
-        when "pipe.txt"
-          removed_characters = line.gsub("-","/").split(/,|\|/).collect(&:strip)
-          removed_characters.slice!(2)
-          color = removed_characters.slice!(3)
-          removed_characters[2] = change_gender(removed_characters[2])
-          @person_array.push(removed_characters.push(color))
-        else
-          removed_characters = line.gsub("-","/").split(/,|\||\s/).collect(&:strip)
-          removed_characters.slice!(2)
-          removed_characters[2] = change_gender(removed_characters[2])
-          @person_array.push(removed_characters)
-        end
-      end
+  def grab_file
+    LocalFiles.each{|file_name| grab_line(file_name)}
+  end
+
+  def grab_line(file_contents)
+    File.foreach("text_files/#{file_contents}"){|line| manipulate_content(file_contents, line)}
+  end
+
+  def manipulate_content(file_name, line)
+    case file_name
+    when "comma.txt"
+      removed_characters = line.gsub("-","/").split(/,|\|/).collect(&:strip)
+      color = removed_characters.slice!(3)
+      @person_array.push(removed_characters.push(color))
+    when "pipe.txt"
+      removed_characters = line.gsub("-","/").split(/,|\|/).collect(&:strip)
+      removed_characters.slice!(2)
+      color = removed_characters.slice!(3)
+      removed_characters[2] = change_gender(removed_characters[2])
+      @person_array.push(removed_characters.push(color))
+    when "space.txt"
+      removed_characters = line.gsub("-","/").split(/,|\||\s/).collect(&:strip)
+      removed_characters.slice!(2)
+      removed_characters[2] = change_gender(removed_characters[2])
+      @person_array.push(removed_characters)
     end
   end
 
   def change_gender(gender)
     case gender
     when "M"
-      return "Male"
-    else
-      return "Female"
+      "Male"
+    when "F"
+      "Female"
     end
   end
 
