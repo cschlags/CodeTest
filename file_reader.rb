@@ -1,5 +1,3 @@
-require 'pry'
-require 'time'
 class Filereader
   LocalFiles = ["comma.txt", "pipe.txt", "space.txt"]
   attr_accessor :person_array
@@ -10,7 +8,7 @@ class Filereader
     output_2
     output_3
   end
-# method - take in the files and read each line. Use regex to remove | , and whitespaces. Set everything as array
+
   def manipulate_files
     LocalFiles.each do |file_name|
       File.foreach("text_files/#{file_name}") do |line|
@@ -44,27 +42,26 @@ class Filereader
     end
   end
 
-# method - returns output 1
   def output_1
     puts "\nOutput 1: \n"
-    person_array.sort_by!{ |a| [a[2], a[0]] }
-    person_array.each do |value|
+    @person_array.sort_by!{ |a| [a[2], a[0]] }
+    @person_array.each do |value|
       puts value.join(" ")
     end
   end
-# method - returns output 2
+
   def output_2
     puts "\nOutput 2: \n"
-    person_array.sort_by!{ |a| [a[3].split("/").last, a[0]] }
-    person_array.each do |value|
+    @person_array.sort_by!{ |a| [a[3].split("/").last, a[0]] }
+    @person_array.each do |value|
       puts value.join(" ")
     end
   end
-# method - returns output 3
+
   def output_3
     puts "\nOutput 3: \n"
-    person_array.sort!.reverse!
-    person_array.each do |value|
+    @person_array.sort!.reverse!
+    @person_array.each do |value|
       puts value.join(" ")
     end
   end
